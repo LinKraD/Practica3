@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Practica3</string>
+    <string name="minombre">Gabriel Vidal Fuente</string>
+    <string name="negrita">Negrita</string>
+    <string name="cursiva">Cursiva</string>
+    <string name="color_de_fondo">Color de Fondo</string>
+    <string name="color_de_texto">Color de Texto</string>
+    <string name="fuente">Fuente</string>
+    <string name="sans">Sans</string>
+    <string name="serif">Serif</string>
+    <string name="monospace">Monospace</string>
+    <string name="tamanyo"><![CDATA[Tamaño>]]></string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="b">B:</string>
+    <string name="g">G:</string>
+    <string name="r">R:</string>
 </resources>
