@@ -67,25 +67,26 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/bt_Aceptar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="@android:string/ok" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/bt_Cancelar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="@android:string/cancel" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

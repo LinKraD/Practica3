@@ -1,7 +1,10 @@
 package net.iesseveroochoa.gabrielvidal.practica3;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -15,6 +18,15 @@ public class ColorActivity extends AppCompatActivity {
 
     TextView tvColores;
 
+    Button btAceptar;
+    Button btCancelar;
+
+    int[] colores;
+
+    int Rojo;
+    int Verde;
+    int Azul;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +36,12 @@ public class ColorActivity extends AppCompatActivity {
         sbG = findViewById(R.id.sb_Verde);
         sbB = findViewById(R.id.sb_Azul);
 
+        btAceptar=findViewById(R.id.bt_Aceptar);
+        btCancelar=findViewById(R.id.bt_Cancelar);
+
         tvColores = findViewById(R.id.tv_Colores);
+
+        colores=new int[3];
 
 
         Integer maxColor=getResources().getInteger(R.integer.maximocolor);
@@ -36,16 +53,18 @@ public class ColorActivity extends AppCompatActivity {
         sbB.setProgress(0);
 
 
-        SeekBar.OnSeekBarChangeListener colores=new SeekBar.OnSeekBarChangeListener() {
+        SeekBar.OnSeekBarChangeListener sbcl=new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                int Rojo;
-                int Verde;
-                int Azul;
+
 
                 Rojo=sbR.getProgress();
                 Verde=sbG.getProgress();
                 Azul=sbB.getProgress();
+
+                colores[0]=Rojo;
+                colores[1]=Verde;
+                colores[2]=Azul;
 
                 tvColores.setBackgroundColor(Color.argb(255,Rojo,Verde,Azul));
             }
@@ -61,9 +80,31 @@ public class ColorActivity extends AppCompatActivity {
             }
         };
 
-        sbR.setOnSeekBarChangeListener(colores);
-        sbG.setOnSeekBarChangeListener(colores);
-        sbB.setOnSeekBarChangeListener(colores);
+        sbR.setOnSeekBarChangeListener(sbcl);
+        sbG.setOnSeekBarChangeListener(sbcl);
+        sbB.setOnSeekBarChangeListener(sbcl);
+
+        btAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i=getIntent();
+
+                i.putExtra("colores",colores);
+
+
+
+                setResult(RESULT_OK, i);
+                finish();            }
+        });
+
+        btCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
     }
 }
 

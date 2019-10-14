@@ -1,8 +1,10 @@
 package net.iesseveroochoa.gabrielvidal.practica3;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +14,12 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final static int TEXTO = 0;
+    private final static int FONDO = 1;
 
     int maxLetra;
 
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar sbTamanyo;
 
     Button btColorTexto;
+    Button btColorFondo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         sbTamanyo=findViewById(R.id.sb_Tamanyo);
         tvTamanyoFuente=findViewById(R.id.tv_TamanyoFuente);
         btColorTexto=findViewById(R.id.bt_ColorTexto);
+        btColorFondo=findViewById(R.id.bt_ColorFondo);
 
         Integer maxLetra=getResources().getInteger(R.integer.maximoletra);
         sbTamanyo.setProgress(maxLetra/2);
@@ -101,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             if (cbCursiva.isChecked()){
                                 tvTexto.setTypeface(Typeface.SANS_SERIF, Typeface.ITALIC);
                             }else {
-                                tvTexto.setTypeface(Typeface.SANS_SERIF);
+                                tvTexto.setTypeface(Typeface.SANS_SERIF,Typeface.NORMAL);
                             }
                         }
                         break;
@@ -116,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                             if (cbCursiva.isChecked()){
                                 tvTexto.setTypeface(Typeface.SERIF, Typeface.ITALIC);
                             }else {
-                                tvTexto.setTypeface(Typeface.SERIF);
+                                tvTexto.setTypeface(Typeface.SERIF,Typeface.NORMAL);
                             }
                         }
                         break;
@@ -131,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                             if (cbCursiva.isChecked()){
                                 tvTexto.setTypeface(Typeface.MONOSPACE, Typeface.ITALIC);
                             }else {
-                                tvTexto.setTypeface(Typeface.MONOSPACE);
+                                tvTexto.setTypeface(Typeface.MONOSPACE,Typeface.NORMAL);
                             }
                         }
                         break;
@@ -161,12 +169,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, ColorActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,TEXTO);
+            }
+        });
+
+        btColorFondo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, ColorActivity.class);
+                startActivityForResult(intent,FONDO);
             }
         });
 
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode==RESULT_CANCELED){
+            Toast.makeText(this,"Cancelado",Toast.LENGTH_SHORT).show();
+        }else{
+            int[] colores=data.getIntArrayExtra("colores");
+            switch (requestCode){
+                case TEXTO:
+                    tvTexto.setTextColor(Color.argb(255,colores[0],colores[1],colores[2]));
+                    break;
+                case FONDO:
+                    tvTexto.setBackgroundColor(Color.argb(255,colores[0],colores[1],colores[2]));
+                    break;
+                default:
+            }
+        }
     }
 }
 
