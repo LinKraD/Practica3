@@ -95,7 +95,8 @@ public class ColorActivity extends AppCompatActivity {
 
 
                 setResult(RESULT_OK, i);
-                finish();            }
+                finish();
+            }
         });
 
         btCancelar.setOnClickListener(new View.OnClickListener() {
